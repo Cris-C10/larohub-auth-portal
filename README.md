@@ -127,6 +127,22 @@ Claims contained within the ID token.
 
 ## Terraform Deployment
 
+Infrastructure is provisioned using Terraform.
+
+Terraform modules manage:
+
+- CloudFront distribution
+- API Gateway HTTP API
+- Lambda functions
+- IAM roles
+- Cognito user pool
+- Cognito app client
+- Cognito hosted domain
+
+Terraform state is currently stored locally during the development phase.
+
+The repository excludes state files via `.gitignore` to prevent accidental publication of infrastructure state.
+
 ## Repository Structure
 
 ## Relation to LAROHUB Ingestion Backbone
