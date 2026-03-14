@@ -43,6 +43,56 @@ to validate the session.
 
 ## Infrastructure Components
 
+The authentication portal is composed of the following AWS components.
+
+### CloudFront
+
+Single public entry point for the system.
+
+Responsibilities:
+
+- Serve static frontend from S3
+- Route authentication endpoints
+- Enforce HTTPS
+
+### Amazon S3
+
+Stores static frontend assets:
+
+- dashboard.html
+- scripts.js
+
+The bucket is private and accessible only via CloudFront Origin Access Control (OAC).
+
+### API Gateway (HTTP API)
+
+Handles authentication-related endpoints:
+/portal/callback
+/portal/me
+/portal/logout
+
+
+### AWS Lambda
+
+Implements authentication logic.
+
+Functions:
+
+- portal-callback
+- portal-me
+- portal-logout
+
+### Amazon Cognito
+
+Provides identity management and OAuth2 login.
+
+Features used:
+
+- Hosted UI
+- Authorization Code flow
+- User groups
+- JWT token issuance
+  
 ## Security Model
 
 ## Terraform Deployment
