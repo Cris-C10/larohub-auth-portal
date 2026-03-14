@@ -18,6 +18,27 @@ Infrastructure is managed entirely through Terraform.
 
 ## Architecture Overview
 
+1. User clicks **Login** on the frontend.
+
+2. Browser is redirected to the Amazon Cognito Hosted UI.
+
+3. After successful authentication, Cognito redirects the browser to:
+/portal/callback
+
+4. The `/portal/callback` Lambda exchanges the authorization code for Cognito tokens.
+
+5. The Lambda sets a Secure HttpOnly cookie:
+larohub_id_token
+
+6. The user is redirected to `/dashboard.html`.
+
+7. The frontend calls:
+/portal/me
+
+to validate the session.
+
+8. The `/portal/me` Lambda validates the JWT against the Cognito JWKS endpoint and returns the authenticated user information.
+
 ## Authentication Flow
 
 ## Infrastructure Components
