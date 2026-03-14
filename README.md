@@ -165,3 +165,18 @@ larohub-auth-portal/
 Terraform configuration files define the infrastructure, while the `lambda/` directory contains the authentication Lambda functions.
 
 ## Relation to LAROHUB Ingestion Backbone
+
+This repository implements the authentication layer for the LARO Hub platform.
+
+It operates alongside the **LAROHUB Ingestion Backbone**:
+
+https://github.com/Cris-C10/larohub-ingestion-backbone
+
+Responsibilities of this repository:
+
+- User authentication
+- Session management
+- Authorization group validation
+- Secure frontend access
+
+The ingestion backbone repository manages the data pipeline infrastructure and backend processing components.
