@@ -95,6 +95,36 @@ Features used:
   
 ## Security Model
 
+Authentication uses the OAuth2 Authorization Code flow via Amazon Cognito.
+
+Security principles implemented:
+
+### Secure Cookie Sessions
+
+User sessions are stored in a Secure HttpOnly cookie:
+larohub_id_token
+
+The cookie cannot be accessed by client-side JavaScript.
+
+### JWT Validation
+
+The `/portal/me` Lambda verifies the JWT signature using Cognito's JWKS endpoint.
+
+### Private S3 Access
+
+The S3 bucket hosting frontend assets is private and accessible only through CloudFront Origin Access Control.
+
+### No Public Backend Endpoints
+
+All authentication routes are exposed only through the CloudFront distribution.
+
+### Authorization via Cognito Groups
+
+User authorization is determined through:
+cognito:groups
+
+Claims contained within the ID token.
+
 ## Terraform Deployment
 
 ## Repository Structure
