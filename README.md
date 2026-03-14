@@ -1,5 +1,7 @@
 # LAROHUB Auth Portal
 
+## Architecture Overview
+
 The LAROHUB Auth Portal provides authentication and session validation for the LARO Hub platform.
 
 Authentication is handled through Amazon Cognito Hosted UI using the OAuth2 Authorization Code flow.
@@ -16,7 +18,7 @@ Sessions are stored as Secure HttpOnly cookies containing the Cognito ID token. 
 
 Infrastructure is managed entirely through Terraform.
 
-## Architecture Overview
+## Authentication Flow
 
 1. User clicks **Login** on the frontend.
 
@@ -38,8 +40,6 @@ larohub_id_token
 to validate the session.
 
 8. The `/portal/me` Lambda validates the JWT against the Cognito JWKS endpoint and returns the authenticated user information.
-
-## Authentication Flow
 
 ## Infrastructure Components
 
