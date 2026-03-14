@@ -145,18 +145,22 @@ The repository excludes state files via `.gitignore` to prevent accidental publi
 
 ## Repository Structure
 
-Repository layout:
-.
-├── main.tf
-├── auth_api.tf
-├── auth_lambda.tf
-├── cognito.tf
-├── cognito_client.tf
-├── cognito_domain.tf
-├── cloudfront_callback_routing.tf
-├── outputs.tf
-├── lambda/
-└── README.md
+```
+larohub-auth-portal/
+├─ main.tf
+├─ auth_api.tf
+├─ auth_lambda.tf
+├─ cognito.tf
+├─ cognito_client.tf
+├─ cognito_domain.tf
+├─ cloudfront_callback_routing.tf
+├─ outputs.tf
+├─ lambda/
+│  ├─ callback.py
+│  ├─ me.py
+│  ├─ logout.py
+└─ README.md
+```
 
 Terraform configuration files define the infrastructure, while the `lambda/` directory contains the authentication Lambda functions.
 
