@@ -57,28 +57,41 @@ resource "aws_lambda_function" "portal_callback" {
   }
 }
 
+data "archive_file" "portal_me_zip" {
+  type        = "zip"
+  source_dir = "${path.module}/lambda/portal_me_pkg"
+  output_path = "${path.module}/lambda/me.zip"
+}
+
 resource "aws_lambda_function" "portal_me" {
   function_name = "larohub-portal-me"
   role          = aws_iam_role.portal_callback_lambda_role.arn
   handler       = "me.handler"
   runtime       = "python3.12"
 
-  filename         = "${path.module}/portal_me.zip"
-  source_code_hash = filebase64sha256("${path.module}/portal_me.zip")
+  filename         = data.archive_file.portal_me_zip.output_path
+  source_code_hash = data.archive_file.portal_me_zip.output_base64sha256
 
   timeout     = 5
   memory_size = 128
+
+  layers = ["arn:aws:lambda:eu-west-2:770693421928:layer:Klayers-p312-cryptography:20"]
+}
+
+data "archive_file" "portal_logout_zip" {
+  type        = "zip"
+  source_file = "${path.module}/lambda/logout.py"
+  output_path = "${path.module}/lambda/logout.zip"
 }
 
 resource "aws_lambda_function" "portal_logout" {
   function_name = "larohub-portal-logout"
+  role          = aws_iam_role.portal_callback_lambda_role.arn
+  handler       = "logout.lambda_handler"
+  runtime       = "python3.12"
 
-  role    = aws_iam_role.portal_callback_lambda_role.arn
-  handler = "logout.lambda_handler"
-  runtime = "python3.12"
-
-  filename         = "${path.module}/lambda/logout.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambda/logout.zip")
+  filename         = data.archive_file.portal_logout_zip.output_path
+  source_code_hash = data.archive_file.portal_logout_zip.output_base64sha256
 
   timeout = 5
 }

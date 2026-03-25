@@ -1,4 +1,12 @@
 terraform {
+  backend "s3" {
+    bucket         = "larohub-terraform-state"
+    key            = "auth-portal/terraform.tfstate"
+    region         = "eu-west-2"
+    dynamodb_table = "larohub-terraform-lock"
+    encrypt        = true
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
