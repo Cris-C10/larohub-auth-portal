@@ -15,3 +15,5 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+# IDE
+.idea/
